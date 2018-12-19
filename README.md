@@ -242,6 +242,33 @@
    
    > 一个指针类型拥有以它以及以它的基底类型为接收者类型的所有方法，而它的基底类型却只拥有以它本身为接收者类型的方法。    
    
+   #### Go语言-流程控制语句
+   ##### if语句
+   if语句跟php不太一样的地方是if里面可以有该if作用于下的一个临时变量    
+   
+   ##### switch case语句
+   从上往下查找，当找到与表达式值相等的case就停止，不再查找下面的case  
+   fallthrough：既是一个关键字，又可以代表一条语句。表示的跳过当前 case 执行下个case。  
+   fallthrough有两点需要注意，fallthrough语句出现的时候一定是当前case的最后一个语句 也就是它后面不能有别的执行，第二点是 执行跳过的这个case之后一定还有别的case。  
+   
+   ##### for语句
+   知识点：range 类似于foreach，continue，break
+   
+   ##### select语句
+   它只能用于通道。
+   ```go
+   ch1 := make(chan int, 1)
+   ch2 := make(chan int, 1)
+   // 省略若干条语句
+   select {
+   case e1 := <-ch1:
+       fmt.Printf("1th case is selected. e1=%v.\n", e1)
+   case e2 := <-ch2:
+       fmt.Printf("2th case is selected. e2=%v.\n", e2)
+   default:
+       fmt.Println("No data!")
+   } 
+   ```
    
    
    
