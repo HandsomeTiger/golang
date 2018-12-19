@@ -136,7 +136,8 @@
    
    ##### Go语言-通道类型（Channel）
    零值：nil  
-   类似于**栈？**，先进先出？array_pop,array_shift(php)  
+   > 类似于**栈？**，先进先出？array_pop,array_shift(php)    
+   
    特点：是Go语言中一种独特的数据结构，特点是**并发**且**安全**。  
    通道类型的声明表示：  
    `chan T` //关键词为chan，T表示通道允许传递的数据类型。  
@@ -159,13 +160,95 @@
    
    ##### Go语言-通道的更多种类
    通道分为**缓冲通道**和**非缓冲通道**。  
+   >      非缓冲通道：发送方在向通道值发送数据的时候会立即被阻塞，直到有某一个接收方已从该通道值中接收了这条数据
    非缓冲通道的声明：  
    `make(chan int, 0)`  
    单向管道，例如：  
    `type Receiver <-chan int`
    
+   #### Go语言-高级数据类型2
+   ##### Go语言-函数（func）  
+   函数类型的字面量由关键字func、由圆括号包裹**参数声明**列表、空格以及可以由圆括号包裹的**结果声明**列表组成。  
+   函数的声明：  
+   `func(input1 string,input2 string) string`
+   函数声明中的参数名称和结果名称都可以统一省略，并且在只有一个无名称的结果声明时还可以省略括号  
+   函数类型的声明：  
+   `type MyFunc func(input1 string ,input2 string) string`  
+   函数的写法：  
+   ```go
+        func myFunc(part1 string, part2 string) string {
+            return part1 + part2
+        }  
+   ```
+   上述函数 myFunc是MyFunc函数类型的实现。  
    
-     
+   ##### Go语言-结构体（struct）和方法
+   > 类似于php中的类class      
+   
+   结构体的声明：
+    ```go
+    type Person struct {
+        Name   string
+        Gender string
+        Age    uint8
+    }
+    ```
+   结构体的值：  
+   `Person{Name: "Robert", Gender: "Male", Age: 33} `   
+   或  
+    `Person{"Robert", "Male", 33} `  
+   匿名结构体和匿名函数  
+   ......  
+   
+   结构体方法的声明：  
+   ```
+    func (person *Person) Grow() {
+        person.Age++
+    } 
+   ``` 
+   >其中 (person *Person)类似于class类中的$this，可以在方法func中调用Person里的属性方法，\*表示的是指针类型。
+   
+   **注意**：Go语言中不存在继承关系，但是可以模仿继承。
+   
+   ##### Go语言-接口（interface）
+   > 跟php中的接口的定义相似    
+   
+   接口的声明：
+   ```go
+    type Animal interface {
+        Grow()
+        Move(string) string
+    }
+   ```
+   type关键字 + 类型名称 + interface关键字  
+   完全实现了接口中定义的方法的结构体就是该接口的实现    
+   
+   空接口类型:  
+   不包含任何方法声明的接口类型，简称空接口。  
+   Go语言中的包含预定义的任何数据类型都可以被看做是空接口的实现。比如：  
+   ```go
+   p := Person{"Robert", "Male", 33, "Beijing"}
+   v := interface{}(&p)
+   ```
+   
+   类型转换：  
+   如上p本来是Person类型的一个实现，把他转换成接口类型，就可以进行断言来判断他是不是接口Animal的一个实现，继而可以判断结构体Person是不是Animal接口的实现。
+   
+   关于断言：  
+   > tip：我们是不能在一个非接口类型的值上应用类型断言来判定它是否属于某一个接口类型的。
+   `h,ok = v.(Animal)`
+   
+   ##### Go语言-指针（ \& 和 * ）
+   
+   > 一个指针类型拥有以它以及以它的基底类型为接收者类型的所有方法，而它的基底类型却只拥有以它本身为接收者类型的方法。    
+   
+   
+   
+   
+   
+   
+   
+   
     
    
    
