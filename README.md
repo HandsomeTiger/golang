@@ -1,6 +1,46 @@
 # golang learning
 
 ## Go语言第一课
+#### GO语言中文网资料
+[Go编程语言](http://docscn.studygolang.com/doc/)
+[Go指南](http://go-tour-zh.appspot.com/list)
+
+#### Go程序基本组件
+##### 包（package）
+每个 Go 程序都是由包组成的。
+
+程序运行的入口是包 `main`。
+
+##### 导入包（import）
+`import "fmt"`
+导出名：  
+导入包之后可以用导出的名称来调用它（导出名也就是方法名），首字母大写的是公共的导入之后可以调用，小写的是私有方法，导入之后也不能被调用。  
+`fmt.PrintIn()`
+
+##### 函数（func）
+当两个或多个连续的函数命名参数是同一类型，则除了最后一个类型之外，其他都可以省略。  
+函数可以返回任意数量的返回值。  
+```go
+func swap(x, y string) (string, string) {
+	return y, x
+}
+```
+Go 的返回值可以被命名，并且像变量那样使用。
+```go
+func split(sum int) (x, y int) {
+	x = sum * 4 / 9
+	y = sum - x
+	return
+}
+```
+
+##### 变量（var）
+短声明变量:  
+**函数外的每个语句都必须以关键字开始（`var`、`func`、等等），`:=` 结构不能使用在函数外。**
+
+类型转换：  
+T(v) T是类型，v是值 比如 ：int(v)  
+
 #### Go语言基本数据类型
 ##### Go语言-程序实体与关键字  
 　　go语言源码文件是由若干个程序实体组成。
@@ -183,7 +223,9 @@
    上述函数 myFunc是MyFunc函数类型的实现。  
    
    ##### Go语言-结构体（struct）和方法
-   > 类似于php中的类class      
+   > 类似于php中的类class  
+   Go 没有类。然而，仍然可以在结构体类型上定义方法。
+   方法接收者 出现在 func 关键字和方法名之间的参数中。
    
    结构体的声明：
     ```go
