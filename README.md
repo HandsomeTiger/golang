@@ -270,8 +270,81 @@
    } 
    ```
    
+   #### Go语言-其他流程控制
+   ##### defer语句，结束前执行
+   组成：defer关键字 + 调用表达式  
+   ```go
+   func readFile(path string) ([]byte, error) {
+       file, err := os.Open(path)
+       if err != nil {
+           return nil, err
+       }
+       defer file.Close()
+       return ioutil.ReadAll(file)
+   }
+   ```
+   上述readFile函数读取一个目录或文件，首先打开文件，当没有错误时把文件内容关闭文件，返回内容。
+   语句defer file.Close()的含义是在打开文件并读取其内容后及时地关闭它。defer是在这个函数执行完之前执行，在这里是在返回内容前关闭，保证返回结果给调用者之前这个文件是关闭的，可以保证安全。
+   无论readFile函数正常地返回了结果还是由于在其执行期间有运行时恐慌发生而被剥夺了流程控制权，其中的file.Close()都会在该函数即将退出那一刻被执行。这就更进一步地保证了资源的及时释放。  
+   注意，当一个函数中存在多个defer语句时，它们携带的表达式语句的执行顺序一定是它们的出现顺序的**倒序**。  
    
+   ##### 异常处理-error
+   原理是Go语言一次性可以返回多个结果，其中就包含错误报告。  
+   **error**是Go语言内置的一个**接口类型**。它的声明是这样的：  
+   ```go
+   type error interface { 
+       Error() string
+   }
+   ```
+   ##### 异常处理-panic
+   panic制造恐慌 recover恢复 recover只有在defer语句中调用才会有效,类似于 try catch捕捉异常
+   ```go
+   defer func() {
+       if p := recover(); p != nil {
+           fmt.Printf("Fatal error: %s\n", p)
+       }
+   }()
+   ```
+   > 在这条defer语句中，我们调用了recover函数。该函数会返回一个interface{}类型的值。还记得吗？interface{}代表空接口。Go语言中的任何类型都是它的实现类型。我们把这个值赋给了变量p。如果p不为nil，那么就说明当前确有运行时恐慌发生。这时我们需根据情况做相应处理。注意，一旦defer语句中的recover函数调用被执行了，运行时恐慌就会被恢复，不论我们是否进行了后续处理。所以，我们一定不要只“拦截”不处理。
+   > 运行时恐慌代表程序运行过程中的致命错误。我们只应该在必要的时候引发它。人为引发运行时恐慌的方式是调用panic函数。recover函数是我们常会用到的。因为在通常情况下，我们肯定不想因为运行时恐慌的意外发生而使程序崩溃。最后，在“恢复”运行时恐慌的时候，大家一定要注意处理措施的得当。
    
+   ##### go语句初探
+   go语句和通道类型是Go语言的**并发**编程理念的最终体现。
+   go语句在用法上要比通道简单很多。与defer语句相同，go语句也可以携带一条表达式语句。注意，go语句的执行会很快结束，并不会对当前流程的进行造成阻塞或明显的延迟。一个简单的示例如下：
+   ```go
+   go fmt.Println("Go!")
+   ```
+   类似一个调度执行，跟程序执行时间没有关系（并发？）
+   
+   time.Sleep 类似于sleep是程序不会立刻结束。time.Sleep(100 * time.Millisecond)
+   runtime.Gosched 让go运行时系统转去运行其他的Goroutine  
+   sync.WaitGroup类型有三个方法可用——Add、Done和Wait。Add会使其所属值的一个内置整数得到相应增加，Done会使那个整数减1，而Wait方法会使当前Goroutine（这里是运行main函数的那个Goroutine）阻塞直到那个整数为0。
+   ```go
+   package main
+   
+   import (
+       "fmt"
+       "sync"
+   )
+   
+   func main() {
+       var wg sync.WaitGroup
+       wg.Add(3)
+       go func() {
+           fmt.Println("Go!")
+           wg.Done()
+       }()
+       go func() {
+           fmt.Println("Go!")
+           wg.Done()
+       }()
+       go func() {
+           fmt.Println("Go!")
+           wg.Done()
+       }()
+       wg.Wait()
+   }
+   ```
    
    
    
