@@ -2,10 +2,15 @@
 
 ## Go语言第一课
 #### GO语言中文网资料
-[Go编程语言](http://docscn.studygolang.com/doc/)
-[Go指南](http://go-tour-zh.appspot.com/list)
+[Go编程语言](http://docscn.studygolang.com/doc/)  
+[Go指南](http://go-tour-zh.appspot.com/list)  
+[GO语言规范](http://docscn.studygolang.com/ref/spec)
+[【golang】浅析rune数据类型](https://www.jianshu.com/p/4fbf529926ca)
 
 #### Go程序基本组件
+##### 入口文件
+main.main //main包下的main函数
+
 ##### 包（package）
 每个 Go 程序都是由包组成的。
 
@@ -122,9 +127,6 @@ T(v) T是类型，v是值 比如 ：int(v)
    ##### Go语言-字符串类型
    零值：\'\'  
    string 反引号“`”原生表示法，双引号“"”解释型表示法。
-  
-   ##### 参考资料
-   [【golang】浅析rune数据类型](https://www.jianshu.com/p/4fbf529926ca)
   
    #### GO语言高级数据类型  
    ##### Go语言-数组类型（array）  
