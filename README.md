@@ -6,6 +6,7 @@
 [Go指南](http://go-tour-zh.appspot.com/list)  
 [GO语言规范](http://docscn.studygolang.com/ref/spec)
 [【golang】浅析rune数据类型](https://www.jianshu.com/p/4fbf529926ca)
+[go 中 对方法的认识-相当于类（Class）](https://blog.csdn.net/qq_36308324/article/details/80762702)
 
 #### Go程序基本组件
 ##### 入口文件
@@ -286,6 +287,8 @@ T(v) T是类型，v是值 比如 ：int(v)
    
    > 一个指针类型拥有以它以及以它的基底类型为接收者类型的所有方法，而它的基底类型却只拥有以它本身为接收者类型的方法。    
    
+   指针的理解：指针类似与php中类里的$this,而值方法则类似于类里的static静态方法
+
    #### Go语言-流程控制语句
    ##### if语句
    if语句跟php不太一样的地方是if里面可以有该if作用于下的一个临时变量    
