@@ -7,6 +7,9 @@
 [GO语言规范](http://docscn.studygolang.com/ref/spec)
 [【golang】浅析rune数据类型](https://www.jianshu.com/p/4fbf529926ca)
 [go 中 对方法的认识-相当于类（Class）](https://blog.csdn.net/qq_36308324/article/details/80762702)
+[入坑Go语言（二）—— 包机制的理解](https://www.jianshu.com/p/bc2bcfaf2a0f)
+[51cto天山老妖](http://blog.51cto.com/9291927)
+[Go语言开发（一）、Go语言简介](http://blog.51cto.com/9291927/2126775)
 
 #### Go程序基本组件
 ##### 入口文件
@@ -22,6 +25,11 @@ main.main //main包下的main函数
 导出名：  
 导入包之后可以用导出的名称来调用它（导出名也就是方法名），首字母大写的是公共的导入之后可以调用，小写的是私有方法，导入之后也不能被调用。  
 `fmt.PrintIn()`
+导入包的顺序  
+[! go_import](https://upload-images.jianshu.io/upload_images/4613793-4007d9ea8c7c56d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/948/format/webp)  
+import->const->var->init()  
+
+有一个最特别的情况，如果别名是_的话，表示只注册该包（初始化全局常量和变量，且执行其init函数），并不会实际引入该包。  
 
 ##### 函数（func）
 当两个或多个连续的函数命名参数是同一类型，则除了最后一个类型之外，其他都可以省略。  

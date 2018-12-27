@@ -14,11 +14,13 @@ type Customer struct {
 	Phone int
 }
 
-func (c Customer) GetName() string {
+func (c Resident) GetName() string {
 	return c.Name
 }
 
-func (c Customer) SetName(name string) {
+func (c Resident) SetName(name string) {
 	c.Name = name
 	fmt.Println(c.Name)
 }
+
+type Resident Customer
