@@ -31,3 +31,27 @@ func inArray(pattern int,arr []int)bool{
 	}
 	return false
 }
+
+// 二分查找
+func find(pattern float64 ,arr []float64)(s float64){
+
+	if len(arr)<=1 {
+		if arr[0]==pattern {
+			return arr[0]
+		} else {
+			return 0.0
+		}
+	}
+	var middle int
+	middle = (len(arr)-1)/2
+	fmt.Printf("arr = %v,len= %v,middle= %v\n",arr,len(arr),middle)
+	if pattern > arr[middle] {
+		s = find(pattern,arr[middle+1:len(arr)])
+	} else if pattern == arr[middle]{
+		s = arr[middle]
+	} else {
+		s = find(pattern,arr[0:middle+1])
+	}
+	return s
+}
+
