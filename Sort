@@ -1,0 +1,22 @@
+// 冒泡排序法
+func sort(arr []int)[]int{
+fmt.Println(arr)
+	for i:=1;i<=len(arr)-1;i++{
+		for j:=0;j<=len(arr)-1-i;j++{
+		fmt.Printf("i= %v ,j= %v \n",i,j)
+			var max int
+			var min int
+			if arr[j]>arr[j+1] {
+				max = arr[j]
+				min = arr[j+1]
+			} else {
+				max = arr[j+1]
+				min = arr[j]
+			}
+			arr[j] = min
+			arr[j+1] = max
+			fmt.Printf("%+v\n",arr)
+		}
+	}
+	return arr
+}
