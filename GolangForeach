@@ -1,0 +1,3 @@
+## for range
+golang 里面的for range 是把值进行了一个拷贝，而每一次forrange的值的地址都是同一个地址。
+[参考 golang中range在slice和map遍历中的注意事项](https://blog.csdn.net/qq_30505673/article/details/83688706)
