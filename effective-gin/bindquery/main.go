@@ -13,12 +13,26 @@ func main() {
 }
 
 type query struct {
-	Name   string  `json:"name" form:"name"`
-	Age    int     `json:"age" form:"age"`
-	Email  *string `json:"email" form:"email"`
-	Gender *int    `json:"gender" form:"gender"`
-	Phone  *string
-	Height *int
+	Name     string  `json:"name" form:"name"`
+	Age      int     `json:"age" form:"age"`
+	Email    *string `json:"email" form:"email"`
+	Gender   *int    `json:"gender" form:"gender"`
+	Phone    *string
+	Height   *int
+	Handsome *Person
+	Animal
+	Lala Animal
+}
+
+type Person struct {
+	One string
+	Two *string
+}
+
+type Animal struct {
+	Person
+	Tiger Person
+	Bird  *Person
 }
 
 // curl
