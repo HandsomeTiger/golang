@@ -294,3 +294,41 @@ func setByForm(value reflect.Value, field reflect.StructField, form map[string][
 	}
 }
 ```
+
+
+#### 项目中遇到的一个坑
+curl -X GET 'localhost:8080'
+```golang
+package main
+
+import (
+	"fmt"
+
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+	s := gin.Default()
+	s.GET("", testB)
+	s.Run(":8080")
+}
+
+func testB(ctx *gin.Context) {
+	in := struct {
+		Name *uint
+		Age  *uint
+	}{}
+	fmt.Printf("%+v", in)
+	ctx.ShouldBindQuery(&in)
+	fmt.Printf("%+v", in)
+}
+```
+
+同样的一段代码,用gin的不同版本执行出来的结果是不一样的。
+之前的版本打印结果是：
+`{Name:<nil> Age:<nil>}{Name:0xc0000b65d8 Age:0xc0000b65e8}`
+之后的版本打印结果是：
+`{Name:<nil> Age:<nil>}{Name:<nil> Age:<nil>}`
+是因为gin在19年3月份的时候对这里的实现进行了修改。
+https://github.com/gin-gonic/gin/commit/0d50ce859745354fa83dcf2bf4c972abed25e53b#diff-e1ee2d6085c74d622d08bb3927e7036c
+

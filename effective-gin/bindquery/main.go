@@ -1,48 +1,23 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	s := gin.Default()
-	s.GET("", bindQueryExample)
+	s.GET("", testB)
 	s.Run(":8080")
 }
 
-type query struct {
-	Name     string  `json:"name" form:"name"`
-	Age      int     `json:"age" form:"age"`
-	Email    *string `json:"email" form:"email"`
-	Gender   *int    `json:"gender" form:"gender"`
-	Phone    *string
-	Height   *int
-	Handsome *Person
-	Animal
-	Lala Animal
-}
-
-type Person struct {
-	One string
-	Two *string
-}
-
-type Animal struct {
-	Person
-	Tiger Person
-	Bird  *Person
-}
-
-// curl
-func bindQueryExample(ctx *gin.Context) {
-	in := &query{}
-	log.Printf("init in :%+v", in)
-	if err := ctx.ShouldBindQuery(in); err != nil {
-		ctx.JSON(400, err.Error())
-		return
-	}
-	log.Printf("bind in :%+v", in)
-	ctx.JSON(200, "ok")
+func testB(ctx *gin.Context) {
+	in := struct {
+		Name *uint
+		Age  *uint
+	}{}
+	fmt.Printf("%+v", in)
+	ctx.ShouldBindQuery(&in)
+	fmt.Printf("%+v", in)
 }
