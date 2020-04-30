@@ -1,0 +1,2 @@
+## time包实现定时器
+golang的time包的Timer和Ticker都可以实现定时功能，两者的区别是Timer用于定时执行一次的任务，Ticker用于循环定时执行多次任务。
